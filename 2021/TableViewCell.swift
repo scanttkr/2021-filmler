@@ -7,9 +7,18 @@
 //
 
 import UIKit
+protocol TableViewCellProtocol {
+    func cellUzerindekiButton(indexPath:IndexPath)
+}
 
 class TableViewCell: UITableViewCell {
 
+    @IBOutlet weak var ImageView: UIImageView!
+    @IBOutlet weak var FilmLabel: UILabel!
+    
+    var hucreProtocol:TableViewCellProtocol?
+    var indexPath:IndexPath?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +30,7 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func Tıkla(_ sender: Any) {
+        hucreProtocol?.cellUzerindekiButton(indexPath:  indexPath!)
+    }
 }

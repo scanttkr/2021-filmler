@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var TableView: UITableView!
     
     var FilmlerListe = [Filmler]()
+    var film = ""
+    var resim = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,11 +50,19 @@ class ViewController: UIViewController {
 }
 extension ViewController : UITableViewDelegate,UITableViewDataSource,TableViewCellProtocol{
     func cellUzerindekiButton(indexPath: IndexPath) {
-        let tiklananFilm = FilmlerListe[indexPath.row]
-        let ad = tiklananFilm.filmAd
-        print("\(ad!)")
+        let sFilm = FilmlerListe[indexPath.row]
+        film = sFilm.filmAd!
+        let sResim = FilmlerListe[indexPath.row]
+        resim = sResim.filmResim!
+        performSegue(withIdentifier: "toDetailVC", sender: nil)
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailVC" {
+            let destinationVC = segue.destination as! DetailsViewController
+            destinationVC.secilenFilm = film
+            destinationVC.secilenFilmResmi = resim
+        }
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
